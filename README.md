@@ -20,3 +20,6 @@ pip install pyblish-lite unreal-qt --target "C:\Users\hanne\Documents\Unreal Pro
 - launch from the tool button (circled)
 
 <!-- TODO add requirements, unreal version, qt, ... -->
+
+## references
+- pyblish forum https://forums.pyblish.com/t/pyblish-unreal-engine/746
