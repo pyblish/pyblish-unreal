@@ -32,6 +32,8 @@ def create_script_editor_button():
 ## don't forget to modify the function
 create_script_editor_button()
 
+pyblish.api.register_host("unreal")
+
 ## TODO add code to add to menu
 
 print("Pyblish is enabled")
