@@ -1,4 +1,4 @@
-# Unreal Python plugin template
+# Unreal Pyblish plugin
 A Pyblish plugin for Unreal. That adds a tool button to launch Pyblish in Unreal  
 <img src="https://github.com/pyblish/pyblish-unreal/assets/3758308/1c18bc63-45c7-4a2c-8b65-7221cb391d76" data-canonical-src="https://github.com/pyblish/pyblish-unreal/assets/3758308/1c18bc63-45c7-4a2c-8b65-7221cb391d76" width="300"/>
 
