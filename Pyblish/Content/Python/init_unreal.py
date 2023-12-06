@@ -26,9 +26,11 @@ def create_script_editor_button():
     level_menu_bar.add_menu_entry(section_name, entry)
     menus.refresh_all_widgets()
 
+    print("pyblish create_script_editor_button")
+
 ## uncomment to add a button to the toolbar to launch your tool
 ## don't forget to modify the function
-# create_script_editor_button()
+create_script_editor_button()
 
 ## TODO add code to add to menu
 
