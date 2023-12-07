@@ -18,6 +18,8 @@ pip install pyblish-lite unreal-qt --target "C:\Users\hanne\Documents\Unreal Pro
 <img src="https://github.com/pyblish/pyblish-unreal/assets/3758308/50158cbd-ea82-4759-95e8-cda955edfd71" data-canonical-src="https://github.com/pyblish/pyblish-unreal/assets/3758308/50158cbd-ea82-4759-95e8-cda955edfd71" width="500"/>
 
 - restart Unreal
+
+## Usage instructions
 - launch from the tool button (circled)
 
 <!-- TODO add requirements, unreal version, qt, ... -->
