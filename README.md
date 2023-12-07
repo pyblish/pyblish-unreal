@@ -24,3 +24,4 @@ pip install pyblish-lite unreal-qt --target "C:\Users\hanne\Documents\Unreal Pro
 
 ## references
 - pyblish forum https://forums.pyblish.com/t/pyblish-unreal-engine/746
+- plugget manifest https://github.com/plugget/plugget-pkgs/tree/main/unreal/pyblish
