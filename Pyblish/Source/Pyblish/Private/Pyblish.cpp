@@ -1,8 +1,8 @@
 ﻿// Copyright Epic Games, Inc. All Rights Reserved.
 #include "Pyblish.h"
-#include "Python3/Win64/include/Python.h"
+#include "Python.h"
 #include "Async/Async.h"
-#include "Python3//Win64/include/pystate.h"
+#include "pystate.h"
 
 #define LOCTEXT_NAMESPACE "FPyblishModule"
 
