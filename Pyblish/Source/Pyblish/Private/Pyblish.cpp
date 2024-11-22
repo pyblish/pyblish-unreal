@@ -6,40 +6,52 @@
 
 #define LOCTEXT_NAMESPACE "FPyblishModule"
 
+static PyObject* CallFunc(PyObject* InArgs, PyObject* InKwargs)
+{
+    PyObject* Result = Py_None;
+    PyObject* Callable = Py_None;
+    PyObject* Args = nullptr;
+    Callable = PyTuple_GET_ITEM(InArgs, 0);
+    if (PyTuple_Size(InArgs) > 1)
+    {
+        Args = PyTuple_GetSlice(InArgs, 1, PyTuple_Size(InArgs));
+    }
+    if (Args)
+    {
+        Result = PyObject_Call(Callable, Args, InKwargs);
+
+    }
+    else
+    {
+        Result = PyObject_Call(Callable, PyTuple_New(0), InKwargs);
+    }
+    return Result;
+}
+
 static PyObject* ExecuteInMainThreadWithResult(PyObject* ModuleSelf, PyObject* InArgs, PyObject* InKwargs) //PyObject* Args, PyObject* Keywds)
 {
-	PyEval_InitThreads();
-	PyThreadState* threadState;
-	threadState = PyEval_SaveThread();
-	PyObject* Result = nullptr;
-	Py_XINCREF(InArgs);
-	FGraphEventRef Task = FFunctionGraphTask::CreateAndDispatchWhenReady([=, &Result]()
-		{
-			//PyEval_InitThreads();
-			PyGILState_STATE State = PyGILState_Ensure();
-			PyObject* Callable = nullptr;
-			PyObject* Args = nullptr;
-			Callable = PyTuple_GET_ITEM(InArgs, 0);
-			if (PyTuple_Size(InArgs) > 1)
-			{
-				Args = PyTuple_GetSlice(InArgs, 1, PyTuple_Size(InArgs));
-			}
-			if (Args)
-			{
-				Result = PyObject_Call(Callable, Args, InKwargs);
+    PyObject* Result = Py_None;
+    Py_XINCREF(InArgs);
+    if (!IsInGameThread())
+    {
+        Py_BEGIN_ALLOW_THREADS
+            FGraphEventRef Task = FFunctionGraphTask::CreateAndDispatchWhenReady([=, &Result]()
+                {
+                    //PyEval_InitThreads();
+                    PyGILState_STATE State = PyGILState_Ensure();
+                    Result = CallFunc(InArgs, InKwargs);
+                    PyGILState_Release(State);
 
-			}
-			else
-			{
-				Result = PyObject_Call(Callable, PyTuple_New(0), InKwargs);
-			}
-			PyGILState_Release(State);
+                }, TStatId(), NULL, ENamedThreads::GameThread);
 
-		}, TStatId(), NULL, ENamedThreads::GameThread);
-
-	FTaskGraphInterface::Get().WaitUntilTaskCompletes(Task);
-	PyEval_RestoreThread(threadState);
-	return Result;
+        FTaskGraphInterface::Get().WaitUntilTaskCompletes(Task);
+        Py_END_ALLOW_THREADS
+    }
+    else
+    {
+        Result = CallFunc(InArgs, InKwargs);
+    }
+    return Result;
 }
 
 PyMethodDef PyhonExtendsion[] = {
